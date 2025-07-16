@@ -1,0 +1,105 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "NHC.Abp.Application": {
+      "path": "src/NHC.Abp.Application/NHC.Abp.Application.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.Application.Tests": {
+      "path": "test/NHC.Abp.Application.Tests/NHC.Abp.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "NHC.Abp.Domain.Shared": {
+      "path": "src/NHC.Abp.Domain.Shared/NHC.Abp.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.Application.Contracts": {
+      "path": "src/NHC.Abp.Application.Contracts/NHC.Abp.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.HttpApi": {
+      "path": "src/NHC.Abp.HttpApi/NHC.Abp.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.HttpApi.Client": {
+      "path": "src/NHC.Abp.HttpApi.Client/NHC.Abp.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.Web": {
+      "path": "src/NHC.Abp.Web/NHC.Abp.Web.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.Web.Tests": {
+      "path": "test/NHC.Abp.Web.Tests/NHC.Abp.Web.Tests.abppkg",
+      "folder": "test"
+    },
+    "NHC.Abp.EntityFrameworkCore.Tests": {
+      "path": "test/NHC.Abp.EntityFrameworkCore.Tests/NHC.Abp.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "NHC.Abp.EntityFrameworkCore": {
+      "path": "src/NHC.Abp.EntityFrameworkCore/NHC.Abp.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.TestBase": {
+      "path": "test/NHC.Abp.TestBase/NHC.Abp.TestBase.abppkg",
+      "folder": "test"
+    },
+    "NHC.Abp.Domain.Tests": {
+      "path": "test/NHC.Abp.Domain.Tests/NHC.Abp.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "NHC.Abp.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/NHC.Abp.HttpApi.Client.ConsoleTestApp/NHC.Abp.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "NHC.Abp.DbMigrator": {
+      "path": "src/NHC.Abp.DbMigrator/NHC.Abp.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "NHC.Abp.Domain": {
+      "path": "src/NHC.Abp.Domain/NHC.Abp.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
