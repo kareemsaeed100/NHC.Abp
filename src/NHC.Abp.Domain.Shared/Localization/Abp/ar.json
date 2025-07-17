@@ -37,6 +37,7 @@
     "Unspecified": "نظام",
     "SeeAllUsers": "رؤية كافة المستخدمين",
     "TakePhoto": "تصوير",
-    "ChoosePhoto": "اختر صورة"
+    "ChoosePhoto": "اختر صورة",
+    "InvalidNotificationNumber": "رقم الإشعار غير صحيح."
   }
 }
