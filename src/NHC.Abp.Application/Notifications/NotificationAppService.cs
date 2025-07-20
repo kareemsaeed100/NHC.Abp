@@ -1,24 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NHC.Abp;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NHC.Abp.Notifications;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Users;
 
 namespace NHC.Boilerplate.Notifications.Dto;
 
+[Authorize]
 [Route("api/notifications")]
-public class NotificationAppService(NotificationManager _notificationManager, ICurrentUser _currentUser) : AbpAppServiceBase
+public class NotificationAppService : AbpAppServiceBase
 {
+    private readonly NotificationManager _notificationManager;
+
+    public NotificationAppService(NotificationManager notificationManager)
+    {
+        _notificationManager = notificationManager;
+    }
+
 
     [HttpGet("all")]
     public async Task<PagedResultDto<NotificationDto>> GetAllAsync(NotificationRequestDto request)
     {
-        long currentUser = Convert.ToInt64(_currentUser.Id.Value);
+        var currentUser = await GetCurrentUserAsync();
 
-        var allNotifications = await _notificationManager.GetUserNotificationsAsync(currentUser);
+        var allNotifications = await _notificationManager.GetUserNotificationsAsync(currentUser.Id);
 
         var pagedNotifications = allNotifications
             .Skip(request.SkipCount)
@@ -46,21 +52,21 @@ public class NotificationAppService(NotificationManager _notificationManager, IC
     [HttpGet("count")]
     public async Task<int> GetCountAsync()
     {
-        long currentUser = Convert.ToInt64(_currentUser.Id.Value);
-        return await _notificationManager.GetUnreadCountAsync(currentUser);
+        var currentUser = await GetCurrentUserAsync();
+        return await _notificationManager.GetUnreadCountAsync(currentUser.Id);
     }
 
     [HttpPost("mark-read/{notificationId}")]
     public async Task<bool> MarkAsReadAsync(long notificationId)
     {
-        long currentUser = Convert.ToInt64(_currentUser.Id.Value);
-        return await _notificationManager.MarkAsReadAsync(notificationId, currentUser);
+        var currentUser = await GetCurrentUserAsync();
+        return await _notificationManager.MarkAsReadAsync(notificationId, currentUser.Id);
     }
 
     [HttpPost("{notificationId}")]
     public async Task<bool> DeleteAsync(long notificationId)
     {
-        long currentUser = Convert.ToInt64(_currentUser.Id.Value);
-        return await _notificationManager.DeleteAsync(notificationId, currentUser);
+        var currentUser = await GetCurrentUserAsync();
+        return await _notificationManager.DeleteAsync(notificationId, currentUser.Id);
     }
 }
