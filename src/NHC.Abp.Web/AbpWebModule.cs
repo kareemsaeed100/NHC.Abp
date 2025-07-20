@@ -1,3 +1,4 @@
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using NHC.Abp.BackgroundJob;
 using NHC.Abp.EntityFrameworkCore;
 using NHC.Abp.Localization;
 using NHC.Abp.MultiTenancy;
@@ -39,7 +41,6 @@ using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
-
 namespace NHC.Abp.Web;
 
 [DependsOn(
@@ -123,6 +124,12 @@ public class AbpWebModule : AbpModule
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
             });
         }
+
+
+        context.Services.AddHangfire(config =>
+            config.UseSqlServerStorage(configuration.GetConnectionString("Default")));
+
+        context.Services.AddHangfireServer();
 
         ConfigureBundles();
         ConfigureUrls(configuration);
@@ -293,6 +300,13 @@ public class AbpWebModule : AbpModule
         app.UseCorrelationId();
         app.MapAbpStaticAssets();
         app.UseAbpStudioLink();
+
+        app.UseHangfireDashboard("/hangfire");
+        // app.UseHangfireServer();    // Deprecated 1.7.30
+
+        HangfireJobRegistrar.Register();
+
+
         app.UseRouting();
         app.UseAbpSecurityHeaders();
         app.UseAuthentication();
