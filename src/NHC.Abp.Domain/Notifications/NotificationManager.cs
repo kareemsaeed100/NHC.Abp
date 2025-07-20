@@ -25,7 +25,7 @@ public class NotificationManager : DomainService, ITransientDependency
 
     }
 
-    public async Task<Notification> CreateNotificationAsync(long userId, string titleAr, string titleEn, string messageAr, string messageEn, NotificationType notificationType)
+    public async Task<Notification> CreateNotificationAsync(Guid userId, string titleAr, string titleEn, string messageAr, string messageEn, NotificationType notificationType)
     {
         var notification = Notification.Create(userId, titleAr, titleEn, messageAr, messageEn, notificationType, DateTime.Now);
         await _notificationRepository.InsertAsync(notification);
@@ -33,14 +33,14 @@ public class NotificationManager : DomainService, ITransientDependency
         return notification;
     }
 
-    public async Task<int> GetUnreadCountAsync(long userId)
+    public async Task<int> GetUnreadCountAsync(Guid userId)
     {
         return await _notificationRepository.CountAsync(x =>
             x.UserId == userId && !x.IsRead && !x.IsDeleted
         );
     }
 
-    public async Task<bool> MarkAsReadAsync(long notificationId, long userId)
+    public async Task<bool> MarkAsReadAsync(long notificationId, Guid userId)
     {
         var notification = await _notificationRepository.FirstOrDefaultAsync(x => x.Id == notificationId && x.UserId == userId);
 
@@ -51,7 +51,7 @@ public class NotificationManager : DomainService, ITransientDependency
         return true;
     }
 
-    public async Task<bool> DeleteAsync(long notificationId, long userId)
+    public async Task<bool> DeleteAsync(long notificationId, Guid userId)
     {
         var notification = await _notificationRepository.FirstOrDefaultAsync(x => x.Id == notificationId && x.UserId == userId);
 
@@ -62,7 +62,7 @@ public class NotificationManager : DomainService, ITransientDependency
         return true;
     }
 
-    public async Task<List<Notification>> GetUserNotificationsAsync(long userId)
+    public async Task<List<Notification>> GetUserNotificationsAsync(Guid userId)
     {
         var query = await _notificationRepository.GetQueryableAsync();
 

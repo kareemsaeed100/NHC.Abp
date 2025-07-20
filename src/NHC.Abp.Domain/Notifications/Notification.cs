@@ -5,7 +5,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 namespace NHC.Abp.Notifications;
 public class Notification : FullAuditedAggregateRoot<long>
 {
-    public long UserId { get; private set; }
+    public Guid UserId { get; private set; }
     public string TitleAr { get; private set; }
     public string TitleEn { get; private set; }
     public string MessageAr { get; private set; }
@@ -16,7 +16,7 @@ public class Notification : FullAuditedAggregateRoot<long>
 
     private Notification() { }
 
-    private Notification(long userId, string titleAr, string titleEn, string messageAr, string messageEn, NotificationType notificationType, DateTimeOffset notificationDateTime)
+    private Notification(Guid userId, string titleAr, string titleEn, string messageAr, string messageEn, NotificationType notificationType, DateTimeOffset notificationDateTime)
     {
         UserId = userId;
         TitleAr = titleAr;
@@ -29,7 +29,7 @@ public class Notification : FullAuditedAggregateRoot<long>
     }
 
     public static Notification Create(
-        long userId, string titleAr, string titleEn, string messageAr, string messageEn,
+        Guid userId, string titleAr, string titleEn, string messageAr, string messageEn,
         NotificationType type, DateTimeOffset NotificationDateTime)
     {
         return new Notification(userId, titleAr, titleEn, messageAr, messageEn, type, NotificationDateTime);
